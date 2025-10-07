@@ -38,9 +38,7 @@ I aim to master C++ and explore how AI interacts with information security. Curi
 </p>
 
 <p align="center">
-  <!-- compact icons row -->
-  <img src="https://skillicons.dev/icons?i=cpp,vscode,git,python&theme=tokyonight" alt="skills icons" />
-</p>
+ 
 
 ---
 
