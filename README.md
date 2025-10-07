@@ -6,9 +6,7 @@
 <br>
 
 <!-- Profile image (GitHub avatar) -->
-<img src="https://github.com/InfoSecNazir.png" alt="Nazeer" width="150" style="border-radius: 50%;" /><br>
-</div>
-
+ 
 <hr>
 
 ## 👋 Hi — I'm **Nazeer (نذير)**
