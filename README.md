@@ -5,8 +5,8 @@
 
 <br>
 
-<!-- Profile image (replace the placeholder with your real image URL) -->
-<img src="YOUR_PROFILE_IMAGE_URL" alt="Nazeer" width="150" style="border-radius: 50%;" /><br>
+<!-- Profile image (GitHub avatar) -->
+<img src="https://github.com/InfoSecNazir.png" alt="Nazeer" width="150" style="border-radius: 50%;" /><br>
 </div>
 
 <hr>
