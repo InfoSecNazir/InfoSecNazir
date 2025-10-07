@@ -9,6 +9,7 @@
 </div>
 
 ---
+![Digital Console](./digital_console.gif)
 
 ## ✨ ABOUT ME
 
