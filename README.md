@@ -1,133 +1,94 @@
 <div align="center" width="100%">
 
+<!-- Excitement GIF at the top -->
+<img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" alt="Excited" width="240"/>
+
+<br>
+
+<!-- Profile image (replace the placeholder with your real image URL) -->
 <img src="YOUR_PROFILE_IMAGE_URL" alt="Nazeer" width="150" style="border-radius: 50%;" /><br>
 </div>
 
 <hr>
 
-<div dir="rtl">
+## 👋 Hi — I'm **Nazeer (نذير)**
 
-## 👋 مرحباً — أنا **نذير (Nazeer)**
+A Computer Engineering student passionate about **C++**, **Cyber Security**, and **Artificial Intelligence**.  
+I aim to master C++ and explore how AI interacts with information security. Curious by nature — I dig deep and avoid surface-level answers.
 
-طالب هندسة حواسيب طموح، شغوف بـ **C++**، **الأمن السيبراني**، و**الذكاء الاصطناعي**.  
-أسعى للهيمنة الكاملة على برمجة C++ وفهم دور الذكاء الاصطناعي في أمن المعلومات. شخصيتي فضولية وباحثة دائمة — لا أرضى بالمعلومة السطحية.
-
-**🎓 التخصّص:** سنة ثانية — هندسة حواسيب.  
-**🎯 الاهتمامات:** C++, Python, Cyber Security, Artificial Intelligence, OOP.
-
-</div>
+**🎓 Major:** 2nd year — Computer Engineering  
+**🎯 Interests:** C++, Python, Cyber Security, Artificial Intelligence, OOP
 
 ---
 
-<div dir="rtl">
-
-### 🔭 أعمل حالياً على
-- التحليل العميق للأكواد الخبيثة.  
-- بناء أدوات سيبرانية دفاعية وهجومية لأغراض بحثية.  
-- احتراف البرمجة الشيئية (OOP) عبر مشاريع متقدمة.  
-- فهم دور الذكاء الاصطناعي في أمن المعلومات.
-
-</div>
+### 🔭 Currently working on
+- Deep analysis of malicious code.  
+- Building defensive and offensive cyber tools for research purposes.  
+- Mastering Object-Oriented Programming through advanced projects.  
+- Understanding AI's role in information security.
 
 ---
 
-<div dir="rtl">
-
-### 🛠️ المهارات والتقنيات (Skills & Technologies)
-
-</div>
+### 🛠️ Skills & Technologies
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=cpp,python,linux,git,visualstudio,vscode&theme=tokyonight" alt="skills" />
+  <!-- Big badges -->
+  <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++" />
+  <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="VSCode" />
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+</p>
+
+<p align="center">
+  <!-- compact icons row -->
+  <img src="https://skillicons.dev/icons?i=cpp,vscode,git,python&theme=tokyonight" alt="skills icons" />
 </p>
 
 ---
 
-<div dir="rtl">
+### 🚀 Projects
+(Repository links you provided)
 
-### 🚀 مشاريعي (Projects)
-(روابط المستودعات حسب ما زودتني)
-</div>
-
-<table align="center" dir="rtl">
-  <thead>
-    <tr>
-      <th align="center">المشروع</th>
-      <th align="center">الرابط</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center"><strong>StringForge</strong></td>
-      <td align="center"><a href="https://github.com/InfoSecNazir/StringForge">🔗 GitHub Repo</a></td>
-    </tr>
-    <tr>
-      <td align="center"><strong>Chrono-Utils</strong></td>
-      <td align="center"><a href="https://github.com/InfoSecNazir/Chrono-Utils">🔗 GitHub Repo</a></td>
-    </tr>
-    <tr>
-      <td align="center"><strong>ATM Core System</strong></td>
-      <td align="center"><a href="https://github.com/InfoSecNazir/ATM_Core_System">🔗 GitHub Repo</a></td>
-    </tr>
-    <tr>
-      <td align="center"><strong>Bank Management CLI</strong></td>
-      <td align="center"><a href="https://github.com/InfoSecNazir/Bank-Management-CLI">🔗 GitHub Repo</a></td>
-    </tr>
-  </tbody>
-</table>
+| Project | Link |
+|---:|:---:|
+| **StringForge** | [🔗 GitHub Repo](https://github.com/InfoSecNazir/StringForge) |
+| **Chrono-Utils** | [🔗 GitHub Repo](https://github.com/InfoSecNazir/Chrono-Utils) |
+| **ATM Core System** | [🔗 GitHub Repo](https://github.com/InfoSecNazir/ATM_Core_System) |
+| **Bank Management CLI** | [🔗 GitHub Repo](https://github.com/InfoSecNazir/Bank-Management-CLI) |
 
 ---
 
-<div dir="rtl">
-
-### 📊 إحصائياتي على GitHub
-</div>
+### 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=InfoSecNazir&show_icons=true&theme=tokyonight&locale=ar&hide_border=true&count_private=true" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=InfoSecNazir&layout=compact&theme=tokyonight&locale=ar&hide_border=true" alt="Top Languages" />
+  <img src="https://github-readme-stats.vercel.app/api?username=InfoSecNazir&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=InfoSecNazir&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
 </p>
 
 ---
 
-<div dir="rtl">
-
-### 🎓 التعليم (Education)
-- هندسة حواسيب — **جامعة دمشق** (مستمر).  
-- ريادة الأعمال — **University of the People** (مستمر).  
-- دورات متخصصة على Coursera.  
-- مساق متقدم في البرمجة الشيئية مع د. محمد أبو هدهود.
-
-</div>
+### 🎓 Education
+- Computer Engineering — **Damascus University** (ongoing)  
+- Entrepreneurship — **University of the People** (ongoing)  
+- Various Coursera specializations  
+- Advanced OOP course with Dr. Mohammed Abu Hadhoud
 
 ---
 
-<div dir="rtl">
-
-### 🏆 إنجازات وشهادات (Achievements)
-- متابعة دورات في Coursera.  
-- بناء فهم عملي وعميق في البرمجة الشيئية وتطبيقاتها.  
-- حل مشكلات وتطوير مشاريع تطبيقية (مشاريع الجامعة والمشاريع الشخصية).
-
-</div>
+### 🏆 Achievements & Certificates
+- Coursera courses completed (multiple).  
+- Deep practical understanding of OOP and real projects.  
+- Built and shipped academic & personal projects.
 
 ---
 
-<div dir="rtl">
-
-### 🌐 اللغات (Languages)
-- العربية — اللغة الأم.  
-- الإنجليزية — مستوى متوسط.
-
-</div>
+### 🌐 Languages
+- Arabic — Native  
+- English — Intermediate
 
 ---
 
-<div dir="rtl">
-
-### 📞 تواصل معي (Contact)
-</div>
-
+### 📫 Contact
 <p align="center">
   <a href="https://www.linkedin.com/in/mohammed-nazir-al-habash-6b7385319"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   <a href="mailto:Hnzyr31@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
@@ -138,10 +99,7 @@
 
 ---
 
-<div dir="rtl">
-
-### 💻 قطعة كود مفضلة (Favorite Snippet)
-</div>
+### 💻 Favorite snippet
 
 ```cpp
 #include <iostream>
