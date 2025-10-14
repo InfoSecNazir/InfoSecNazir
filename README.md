@@ -100,7 +100,7 @@ Time and date management library for C++, designed with OOP principles for clean
 
 ### 🏦 ATM Core System  
 Core system for ATMs built with C++, featuring advanced security modules  
-**Tech:** `C++` `OOP` `Banking` `Security`  
+**Tech:** `C++` `Structured` `Banking` 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-ATM__Core__System-blue?logo=github)](https://github.com/InfoSecNazir/ATM_Core_System)
 
 </td>
@@ -108,7 +108,7 @@ Core system for ATMs built with C++, featuring advanced security modules
 
 ### 💻 Bank Management CLI  
 Command-line banking management system for financial operations  
-**Tech:** `C++` `OOP` `CLI`  
+**Tech:** `C++` `Structured` `CLI`  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Bank--Management--CLI-blue?logo=github)](https://github.com/InfoSecNazir/Bank-Management-CLI)
 
 </td>
