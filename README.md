@@ -73,7 +73,6 @@ A **Computer Engineering** student passionate about **C++**, **Cyber Security**,
 - **AI Security**: Exploring AI vulnerabilities and defenses
 
 ---
-
 ## 🚀 Featured Projects  
 
 <table>
@@ -89,8 +88,8 @@ Advanced string manipulation library for C++ with an easy-to-use API
 <td align="center" width="50%">
 
 ### ⏱️ Chrono-Utils  
-Time and date management library for C++, providing clean and simple time interfaces  
-**Tech:** `C++` `Time Management`  
+Time and date management library for C++, designed with OOP principles for clean and modular code  
+**Tech:** `C++` `OOP` `Time Management`  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Chrono--Utils-blue?logo=github)](https://github.com/InfoSecNazir/Chrono-Utils)
 
 </td>
@@ -101,7 +100,7 @@ Time and date management library for C++, providing clean and simple time interf
 
 ### 🏦 ATM Core System  
 Core system for ATMs built with C++, featuring advanced security modules  
-**Tech:** `C++` `Banking` `Security`  
+**Tech:** `C++` `OOP` `Banking` `Security`  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-ATM__Core__System-blue?logo=github)](https://github.com/InfoSecNazir/ATM_Core_System)
 
 </td>
@@ -109,7 +108,7 @@ Core system for ATMs built with C++, featuring advanced security modules
 
 ### 💻 Bank Management CLI  
 Command-line banking management system for financial operations  
-**Tech:** `C++` `CLI`  
+**Tech:** `C++` `OOP` `CLI`  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Bank--Management--CLI-blue?logo=github)](https://github.com/InfoSecNazir/Bank-Management-CLI)
 
 </td>
@@ -128,7 +127,7 @@ Demonstrates inheritance, polymorphism, and encapsulation through a personnel hi
 
 ### 🔢 Interactive Calculator  
 Interactive console-based calculator implementing arithmetic operations with OOP design  
-**Tech:** `C++` `Console App`  
+**Tech:** `C++` `OOP` `Console App`  
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Interactive__Calculator-blue?logo=github)](https://github.com/InfoSecNazir/Interactive_Calculator)
 
 </td>
