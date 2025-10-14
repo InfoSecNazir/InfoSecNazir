@@ -74,16 +74,66 @@ A **Computer Engineering** student passionate about **C++**, **Cyber Security**,
 
 ---
 
-## 🚀 PROJECTS
+## 🚀 Featured Projects  
 
-| Project | Description | Technologies | Link |
-|---------|-------------|--------------|------|
-| **StringForge** | Advanced string manipulation library for C++ with an easy-to-use API | `C++` `OOP` | [GitHub](https://github.com/InfoSecNazir/StringForge) |
-| **Chrono-Utils** | Time and date management library for C++, providing easy interfaces for time periods | `C++` `Time Management` | [GitHub](https://github.com/InfoSecNazir/Chrono-Utils) |
-| **ATM Core System** | Core system for ATMs built with C++, featuring advanced security features | `C++` `Banking` `Security` | [GitHub](https://github.com/InfoSecNazir/ATM_Core_System) |
-| **Bank Management CLI** | Banking management system operating through command line interface | `C++` `CLI` | [GitHub](https://github.com/InfoSecNazir/Bank-Management-CLI) |
+<table>
+<tr>
+<td align="center" width="50%">
+  
+### 🧩 StringForge  
+Advanced string manipulation library for C++ with an easy-to-use API  
+**Tech:** `C++` `OOP`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-StringForge-blue?logo=github)](https://github.com/InfoSecNazir/StringForge)
 
----
+</td>
+<td align="center" width="50%">
+
+### ⏱️ Chrono-Utils  
+Time and date management library for C++, providing clean and simple time interfaces  
+**Tech:** `C++` `Time Management`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Chrono--Utils-blue?logo=github)](https://github.com/InfoSecNazir/Chrono-Utils)
+
+</td>
+</tr>
+
+<tr>
+<td align="center" width="50%">
+
+### 🏦 ATM Core System  
+Core system for ATMs built with C++, featuring advanced security modules  
+**Tech:** `C++` `Banking` `Security`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-ATM__Core__System-blue?logo=github)](https://github.com/InfoSecNazir/ATM_Core_System)
+
+</td>
+<td align="center" width="50%">
+
+### 💻 Bank Management CLI  
+Command-line banking management system for financial operations  
+**Tech:** `C++` `CLI`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Bank--Management--CLI-blue?logo=github)](https://github.com/InfoSecNazir/Bank-Management-CLI)
+
+</td>
+</tr>
+
+<tr>
+<td align="center" width="50%">
+
+### 👥 OOP Personnel Management System  
+Demonstrates inheritance, polymorphism, and encapsulation through a personnel hierarchy  
+**Tech:** `C++` `OOP`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-OOP__Personnel__Management__System-blue?logo=github)](https://github.com/InfoSecNazir/OOP-Personnel-Management-System)
+
+</td>
+<td align="center" width="50%">
+
+### 🔢 Interactive Calculator  
+Interactive console-based calculator implementing arithmetic operations with OOP design  
+**Tech:** `C++` `Console App`  
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Interactive__Calculator-blue?logo=github)](https://github.com/InfoSecNazir/Interactive_Calculator)
+
+</td>
+</tr>
+</table>
 
 ## 📊 GITHUB STATS
 
