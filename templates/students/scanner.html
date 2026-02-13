@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+
+{% block title %}QR Code Scanner - SSMS{% endblock %}
+
+{% block extra_css %}
+<style>
+    #reader {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .scan-result {
+        animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+            <i class="fas fa-qrcode text-blue-600"></i> QR Code Scanner
+        </h1>
+        
+        <!-- Session Selection -->
+        <div class="mb-6">
+            <label for="session-select" class="block text-sm font-medium text-gray-700 mb-2">
+                Select Session <span class="text-red-500">*</span>
+            </label>
+            <select id="session-select" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">-- Select a session --</option>
+                {% for session in sessions %}
+                <option value="{{ session.id }}">
+                    {{ session.title }} - {{ session.date }} ({{ session.get_session_type_display }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <!-- Status Selection -->
+        <div class="mb-6">
+            <label for="status-select" class="block text-sm font-medium text-gray-700 mb-2">
+                Attendance Status
+            </label>
+            <select id="status-select" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="present">Present</option>
+                <option value="late">Late</option>
+                <option value="absent">Absent</option>
+                <option value="excused">Excused</option>
+                <option value="submitted">Task Submitted</option>
+            </select>
+        </div>
+        
+        <!-- Scanner Controls -->
+        <div class="mb-6 text-center">
+            <button id="start-scan-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition mr-2">
+                <i class="fas fa-camera"></i> Start Scanner
+            </button>
+            <button id="stop-scan-btn" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition hidden">
+                <i class="fas fa-stop"></i> Stop Scanner
+            </button>
+        </div>
+        
+        <!-- QR Code Reader -->
+        <div id="reader" class="mb-6 hidden"></div>
+        
+        <!-- Manual Entry -->
+        <div class="mb-6">
+            <label for="manual-uuid" class="block text-sm font-medium text-gray-700 mb-2">
+                Or Enter Student UUID Manually
+            </label>
+            <div class="flex">
+                <input type="text" id="manual-uuid" placeholder="STUDENT:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" 
+                       class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="manual-submit-btn" class="bg-green-600 text-white px-6 py-2 rounded-r-lg hover:bg-green-700 transition">
+                    <i class="fas fa-check"></i> Submit
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scan Results -->
+        <div id="scan-results" class="space-y-3"></div>
+    </div>
+    
+    <!-- Recent Scans -->
+    <div class="bg-white rounded-lg shadow-lg p-8 mt-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-history text-purple-600"></i> Recent Scans
+        </h2>
+        <div id="recent-scans" class="space-y-2">
+            <p class="text-gray-500 text-center">No scans yet</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script>
+let html5QrCode;
+let recentScans = [];
+
+// Get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Start QR Scanner
+document.getElementById('start-scan-btn').addEventListener('click', function() {
+    const sessionId = document.getElementById('session-select').value;
+    if (!sessionId) {
+        showResult('error', 'Please select a session first!');
+        return;
+    }
+    
+    startScanner();
+});
+
+function startScanner() {
+    html5QrCode = new Html5Qrcode("reader");
+    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+    
+    document.getElementById('reader').classList.remove('hidden');
+    document.getElementById('start-scan-btn').classList.add('hidden');
+    document.getElementById('stop-scan-btn').classList.remove('hidden');
+    
+    html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        onScanSuccess,
+        onScanFailure
+    ).catch(err => {
+        console.error('Error starting scanner:', err);
+        showResult('error', 'Failed to start camera. Please check permissions.');
+        resetScanner();
+    });
+}
+
+// Stop QR Scanner
+document.getElementById('stop-scan-btn').addEventListener('click', function() {
+    stopScanner();
+});
+
+function stopScanner() {
+    if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+            resetScanner();
+        }).catch(err => {
+            console.error('Error stopping scanner:', err);
+            resetScanner();
+        });
+    }
+}
+
+function resetScanner() {
+    document.getElementById('reader').classList.add('hidden');
+    document.getElementById('start-scan-btn').classList.remove('hidden');
+    document.getElementById('stop-scan-btn').classList.add('hidden');
+}
+
+// QR Code Scan Success
+function onScanSuccess(decodedText, decodedResult) {
+    processQRData(decodedText);
+}
+
+function onScanFailure(error) {
+    // Silent - don't show errors for failed scans
+}
+
+// Process QR Data
+function processQRData(qrData) {
+    const sessionId = document.getElementById('session-select').value;
+    const status = document.getElementById('status-select').value;
+    
+    if (!sessionId) {
+        showResult('error', 'Please select a session first!');
+        return;
+    }
+    
+    // Get location if available
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                sendAttendanceData(qrData, sessionId, status, position.coords.latitude, position.coords.longitude);
+            },
+            error => {
+                // Send without location if permission denied
+                sendAttendanceData(qrData, sessionId, status, null, null);
+            }
+        );
+    } else {
+        sendAttendanceData(qrData, sessionId, status, null, null);
+    }
+}
+
+// Send Attendance Data
+function sendAttendanceData(qrData, sessionId, status, latitude, longitude) {
+    const csrftoken = getCookie('csrftoken');
+    
+    fetch('{% url "students:process_scan" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+            qr_data: qrData,
+            session_id: sessionId,
+            status: status,
+            latitude: latitude,
+            longitude: longitude
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showResult('success', data.message);
+            addRecentScan(data.student, status);
+        } else {
+            showResult('error', data.error || 'Failed to process scan');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showResult('error', 'Network error. Please try again.');
+    });
+}
+
+// Manual Submit
+document.getElementById('manual-submit-btn').addEventListener('click', function() {
+    const manualUuid = document.getElementById('manual-uuid').value.trim();
+    if (!manualUuid) {
+        showResult('error', 'Please enter a student UUID');
+        return;
+    }
+    processQRData(manualUuid);
+    document.getElementById('manual-uuid').value = '';
+});
+
+// Show Result
+function showResult(type, message) {
+    const resultsDiv = document.getElementById('scan-results');
+    const resultClass = type === 'success' ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700';
+    const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+    
+    const resultHtml = `
+        <div class="scan-result border-l-4 ${resultClass} p-4 rounded">
+            <div class="flex items-center">
+                <i class="fas ${icon} mr-3"></i>
+                <p>${message}</p>
+            </div>
+        </div>
+    `;
+    
+    resultsDiv.innerHTML = resultHtml + resultsDiv.innerHTML;
+    
+    // Keep only last 5 results
+    const results = resultsDiv.children;
+    while (results.length > 5) {
+        resultsDiv.removeChild(results[results.length - 1]);
+    }
+}
+
+// Add Recent Scan
+function addRecentScan(student, status) {
+    const recentScansDiv = document.getElementById('recent-scans');
+    const timestamp = new Date().toLocaleTimeString();
+    
+    const statusColors = {
+        'present': 'bg-green-100 text-green-800',
+        'late': 'bg-yellow-100 text-yellow-800',
+        'absent': 'bg-red-100 text-red-800',
+        'excused': 'bg-blue-100 text-blue-800',
+        'submitted': 'bg-purple-100 text-purple-800'
+    };
+    
+    const scanHtml = `
+        <div class="scan-result flex items-center justify-between bg-gray-50 p-3 rounded">
+            <div>
+                <p class="font-semibold">${student.name}</p>
+                <p class="text-sm text-gray-600">${student.university_id} - ${timestamp}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColors[status] || 'bg-gray-100 text-gray-800'}">
+                ${status.toUpperCase()}
+            </span>
+        </div>
+    `;
+    
+    // Clear "No scans yet" message
+    if (recentScansDiv.children.length === 1 && recentScansDiv.children[0].textContent.includes('No scans yet')) {
+        recentScansDiv.innerHTML = '';
+    }
+    
+    recentScansDiv.innerHTML = scanHtml + recentScansDiv.innerHTML;
+    
+    // Keep only last 10 scans
+    const scans = recentScansDiv.children;
+    while (scans.length > 10) {
+        recentScansDiv.removeChild(scans[scans.length - 1]);
+    }
+}
+</script>
+{% endblock %}

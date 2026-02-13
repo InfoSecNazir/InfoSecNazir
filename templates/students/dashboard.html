@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SSMS{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-chart-line text-blue-600"></i> Admin Dashboard
+    </h1>
+    <p class="text-gray-600">Comprehensive overview of attendance and student performance</p>
+</div>
+
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase">Total Students</h3>
+            <i class="fas fa-users text-blue-600 text-2xl"></i>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">{{ total_students }}</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase">Total Sessions</h3>
+            <i class="fas fa-calendar text-green-600 text-2xl"></i>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">{{ total_sessions }}</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase">Total Records</h3>
+            <i class="fas fa-check-circle text-purple-600 text-2xl"></i>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">{{ total_attendance }}</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase">At Risk</h3>
+            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">{{ at_risk_students }}</p>
+        <p class="text-xs text-gray-500 mt-1">&lt;50% attendance</p>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="flex space-x-4 mb-8">
+    <a href="{% url 'students:export_excel' %}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+        <i class="fas fa-file-excel"></i> Export to Excel
+    </a>
+    <a href="{% url 'students:scanner' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+        <i class="fas fa-qrcode"></i> Open Scanner
+    </a>
+    <a href="/admin/" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition">
+        <i class="fas fa-cog"></i> Admin Panel
+    </a>
+</div>
+
+<!-- Charts and Tables -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Session Statistics -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-chart-pie text-purple-600"></i> Sessions by Type
+        </h2>
+        <div class="space-y-3">
+            {% for stat in session_stats %}
+            <div class="flex items-center justify-between">
+                <span class="text-gray-700">{{ stat.session_type|title }}</span>
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    {{ stat.count }}
+                </span>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center">No sessions yet</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Top Performers -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-trophy text-yellow-600"></i> Top Performers
+        </h2>
+        <div class="space-y-3">
+            {% for student in top_students %}
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <span class="bg-gray-200 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-semibold">
+                        {{ forloop.counter }}
+                    </span>
+                    <div>
+                        <p class="font-semibold text-gray-800">{{ student.name }}</p>
+                        <p class="text-xs text-gray-500">{{ student.university_id }}</p>
+                    </div>
+                </div>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    {{ student.attendance_percentage|floatformat:1 }}%
+                </span>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center">No data available</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Recent Attendance Logs -->
+<div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-history text-blue-600"></i> Recent Attendance Logs
+    </h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recorded By</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for log in recent_logs %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900">{{ log.student.name }}</div>
+                            <div class="text-sm text-gray-500">{{ log.student.university_id }}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">{{ log.session.title }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% if log.status == 'present' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            Present
+                        </span>
+                        {% elif log.status == 'late' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                            Late
+                        </span>
+                        {% elif log.status == 'absent' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            Absent
+                        </span>
+                        {% elif log.status == 'excused' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            Excused
+                        </span>
+                        {% else %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                            {{ log.get_status_display }}
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ log.timestamp|date:"Y-m-d H:i" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ log.recorded_by|default:"-" }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                        No attendance records yet
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
