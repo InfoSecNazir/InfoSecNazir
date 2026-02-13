@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Sessions - SSMS{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-calendar text-blue-600"></i> Session Management
+    </h1>
+    <p class="text-gray-600">View and manage all sessions</p>
+</div>
+
+<!-- Search and Filter -->
+<div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+            <label for="type" class="block text-sm font-medium text-gray-700 mb-2">Session Type</label>
+            <select id="type" name="type" 
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">All Types</option>
+                <option value="lecture" {% if session_type == 'lecture' %}selected{% endif %}>Lecture</option>
+                <option value="lab" {% if session_type == 'lab' %}selected{% endif %}>Laboratory</option>
+                <option value="exam" {% if session_type == 'exam' %}selected{% endif %}>Exam</option>
+                <option value="assignment" {% if session_type == 'assignment' %}selected{% endif %}>Assignment</option>
+                <option value="other" {% if session_type == 'other' %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="date_from" class="block text-sm font-medium text-gray-700 mb-2">From Date</label>
+            <input type="date" id="date_from" name="date_from" value="{{ date_from }}" 
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        
+        <div>
+            <label for="date_to" class="block text-sm font-medium text-gray-700 mb-2">To Date</label>
+            <input type="date" id="date_to" name="date_to" value="{{ date_to }}" 
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        
+        <div class="flex items-end">
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition mr-2">
+                <i class="fas fa-search"></i> Filter
+            </button>
+            <a href="{% url 'students:session_list' %}" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition">
+                <i class="fas fa-redo"></i> Reset
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Session List -->
+<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-800">
+                Session List ({{ sessions.count }} total)
+            </h2>
+            <a href="/admin/students/session/add/" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                <i class="fas fa-plus"></i> Add Session
+            </a>
+        </div>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for session in sessions %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">{{ session.title }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% if session.session_type == 'lecture' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            Lecture
+                        </span>
+                        {% elif session.session_type == 'lab' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            Lab
+                        </span>
+                        {% elif session.session_type == 'exam' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            Exam
+                        </span>
+                        {% elif session.session_type == 'assignment' %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                            Assignment
+                        </span>
+                        {% else %}
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                            Other
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ session.date }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {% if session.start_time %}
+                        {{ session.start_time|time:"H:i" }}
+                        {% if session.end_time %}- {{ session.end_time|time:"H:i" }}{% endif %}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ session.location|default:"-" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <a href="{% url 'students:session_detail' session.id %}" class="text-blue-600 hover:text-blue-900 mr-3">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="/admin/students/session/{{ session.id }}/change/" class="text-green-600 hover:text-green-900">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-2"></i>
+                        <p>No sessions found</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
